@@ -1,0 +1,240 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  border: 1px solid #ccc;
+  position: relative;
+  width: 400px;
+  height: 550px;
+  overflow: auto;
+  min-height: min-content;
+}
+.main::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.main::-webkit-scrollbar-track {
+  background-color: #ccc;
+}
+.main::-webkit-scrollbar-thumb {
+  border-radius: 30px;
+  color: #ff6b82;
+  background-color: #ff6b82;
+}
+.radios {
+  width: 15px;
+  position: relative;
+  /* border-radius: 2px solid; */
+  display: flex;
+  accent-color: #ff6b82;
+}
+
+.units-section {
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  width: 80%;
+  height: auto;
+  min-height: max-content;
+  padding: 15px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin: 10px 20px;
+}
+
+.highlight-border {
+  border: 2px solid #ff6b82;
+}
+.units-header-section {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+.units-header-data-section {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.units-header-data-left {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+.units-header-data-right {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+}
+.units-content-section {
+  display: none;
+  margin: 10px 0 0px 30px;
+}
+.header-data-units {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+}
+.header-data-units-off {
+  background-color: #ff6b82;
+  color: white;
+
+  padding: 5px 10px;
+  margin: 0px 10px;
+  font-size: 10px;
+}
+
+.header-data-orginal-price {
+  font-size: 12px;
+  color: #ccc;
+  font-weight: 100;
+  text-decoration: line-through;
+}
+
+.heading {
+  width: 90%;
+  font-size: 20px;
+  color: #ff6b82;
+  display: flex;
+  margin: 10px 0px;
+  font-family: sans-serif;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-data-text {
+  font-size: 15px;
+}
+
+.heading::before,
+.heading::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ff6b82;
+  margin: 0 10px;
+}
+.content-sno {
+  display: inline-flex;
+  width: 5%;
+  min-width: 5%;
+  position: relative;
+  text-align: right;
+  justify-content: end;
+}
+.sno {
+  visibility: hidden;
+}
+.content-inputs-div {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+}
+.content-inputs {
+  width: 30%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  margin: 5px 5px;
+}
+.content-header-size,
+.content-header-color {
+  display: inline-flex;
+  font-weight: lighter;
+  font-size: 15px;
+  width: 33%;
+}
+.footer-section {
+  width: 88%;
+}
+.price-shipping-section {
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  width: 100%;
+}
+.button-section {
+  width: 100%;
+  margin: 0px 0;
+}
+.button-section button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  color: white;
+  background-color: #ff6b82;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-desc {
+  margin: 5px 0;
+  float: right;
+  right: 0;
+  width: 100%;
+  font-size: 15px;
+  color: gray;
+  text-align: end;
+}
+.Delivery-type {
+  color: #ff6b82;
+}
+.most-popular {
+  background-color: #ff6b82;
+  color: white;
+  position: absolute;
+  top: -25px;
+  left: 190px;
+  width: 100px;
+  min-width: fit-content;
+  padding: 2px 10px;
+  white-space: nowrap;
+  border-radius: 25px;
+}
+
+input[type="radio"] {
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+  margin: 5px 0;
+  padding: 0;
+  border: 1px solid black;
+  border-radius: 50%;
+  appearance: none;
+  background-color: transparent;
+  outline: none;
+}
+
+input[type="radio"]:not(:disabled):checked {
+  border-color: #ff6b82;
+  background-color: #ff6b82;
+  background-clip: content-box;
+  padding: 2px;
+  background-image: radial-gradient(
+    circle,
+    #ff6b82 0%,
+    #ff6b82 50%,
+    transparent 60%,
+    transparent 100%
+  );
+}
