@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion Example</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+        border: 1px solid #ccc;
+        position: relative;
+        width: 400px;
+        height: 550px;
+        overflow: auto;
+        min-height: min-content;
+      }
+      .main::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      .main::-webkit-scrollbar-track {
+        background-color: #ccc;
+      }
+      .main::-webkit-scrollbar-thumb {
+        border-radius: 30px;
+        color: #ff6b82;
+        background-color: #ff6b82;
+      }
+      .radios {
+        width: 15px;
+        position: relative;
+        /* border-radius: 2px solid; */
+        display: flex;
+        accent-color: #ff6b82;
+      }
+
+      .units-section {
+        box-sizing: content-box;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        width: 80%;
+        height: auto;
+        min-height: max-content;
+        padding: 15px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin: 10px 20px;
+      }
+
+      .highlight-border {
+        border: 2px solid #ff6b82;
+      }
+      .units-header-section {
+        display: flex;
+        /* justify-content: center; */
+        /* align-items: center; */
+      }
+      .units-header-data-section {
+        position: relative;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .units-header-data-left {
+        width: 65%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+      }
+      .units-header-data-right {
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+      }
+      .units-content-section {
+        display: none;
+        margin: 10px 0 0px 30px;
+      }
+      .header-data-units {
+        display: flex;
+        font-weight: bold;
+        align-items: center;
+      }
+      .header-data-units-off {
+        background-color: #ff6b82;
+        color: white;
+
+        padding: 5px 10px;
+        margin: 0px 10px;
+        font-size: 10px;
+      }
+
+      .header-data-orginal-price {
+        font-size: 12px;
+        color: #ccc;
+        font-weight: 100;
+        text-decoration: line-through;
+      }
+
+      .heading {
+        width: 90%;
+        font-size: 20px;
+        color: #ff6b82;
+        display: flex;
+        margin: 10px 0px;
+        font-family: sans-serif;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header-data-text {
+        font-size: 15px;
+      }
+
+      .heading::before,
+      .heading::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #ff6b82;
+        margin: 0 10px;
+      }
+      .content-sno {
+        display: inline-flex;
+        width: 5%;
+        min-width: 5%;
+        position: relative;
+        text-align: right;
+        justify-content: end;
+      }
+      .sno {
+        visibility: hidden;
+      }
+      .content-inputs-div {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+      }
+      .content-inputs {
+        width: 30%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        margin: 5px 5px;
+      }
+      .content-header-size,
+      .content-header-color {
+        display: inline-flex;
+        font-weight: lighter;
+        font-size: 15px;
+        width: 33%;
+      }
+      .footer-section {
+        width: 88%;
+      }
+      .price-shipping-section {
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        width: 100%;
+      }
+      .button-section {
+        width: 100%;
+        margin: 0px 0;
+      }
+      .button-section button {
+        cursor: pointer;
+        outline: none;
+        border: none;
+        width: 100%;
+        height: 50px;
+        font-size: 15px;
+        color: white;
+        background-color: #ff6b82;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .footer-desc {
+        margin: 5px 0;
+        float: right;
+        right: 0;
+        width: 100%;
+        font-size: 15px;
+        color: gray;
+        text-align: end;
+      }
+      .Delivery-type {
+        color: #ff6b82;
+      }
+      .most-popular {
+        background-color: #ff6b82;
+        color: white;
+        position: absolute;
+        top: -25px;
+        left: 190px;
+        width: 100px;
+        min-width: fit-content;
+        padding: 2px 10px;
+        white-space: nowrap;
+        border-radius: 25px;
+      }
+
+      input[type="radio"] {
+        box-sizing: border-box;
+        width: 15px;
+        height: 15px;
+        margin: 5px 0;
+        padding: 0;
+        border: 1px solid black;
+        border-radius: 50%;
+        appearance: none;
+        background-color: transparent;
+        outline: none;
+      }
+
+      input[type="radio"]:not(:disabled):checked {
+        border-color: #ff6b82;
+        background-color: #ff6b82;
+        background-clip: content-box;
+        padding: 2px;
+        background-image: radial-gradient(
+          circle,
+          #ff6b82 0%,
+          #ff6b82 50%,
+          transparent 60%,
+          transparent 100%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="heading">YAH! It's BOGO</div>
+      <div
+        class="units-section"
+        id="units-section1"
+        onclick="selectUnits(event,'1','10')"
+      >
+        <div class="units-header-section">
+          <input
+            type="radio"
+            class="radios"
+            name="units"
+            value="1"
+            id="radio1"
+          />
+          <div class="units-header-data-section">
+            <div class="units-header-data-left">
+              <div class="header-data-units">
+                <span class="header-data-units">1 Unit</span>
+                <span class="header-data-units-off">10% Off</span>
+              </div>
+              <span class="header-data-text"> Standard Price</span>
+            </div>
+            <div class="units-header-data-right">
+              <span class="header-data-offer-price"> $10.00 USD</span>
+              <span class="header-data-orginal-price">$24.00 USD</span>
+            </div>
+          </div>
+        </div>
+        <div class="units-content-section" id="content1">
+          <div class="content-header">
+            <span class="content-sno sno">sno</span>
+            <span class="content-header-size">Size</span>
+            <span class="content-header-color">Color</span>
+          </div>
+          <div class="content-inputs-div">
+            <span class="content-sno">#1</span>
+            <select class="content-inputs">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select class="content-inputs">
+              <option>Black</option>
+              <option>White</option>
+              <option>Red</option>
+            </select>
+          </div>
+          <div class="content-inputs-div">
+            <span class="content-sno">#2</span>
+            <select class="content-inputs">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select class="content-inputs">
+              <option>Black</option>
+              <option>White</option>
+              <option>Red</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        class="units-section"
+        id="units-section2"
+        onclick="selectUnits(event,'2','18')"
+      >
+        <div class="units-header-section">
+          <input
+            type="radio"
+            class="radios"
+            name="units"
+            value="2"
+            id="radio2"
+          />
+          <div class="units-header-data-section">
+            <div class="units-header-data-left">
+              <div class="header-data-units">
+                <span class="header-data-units">2 Unit</span>
+                <span class="header-data-units-off">20% Off</span>
+              </div>
+              <span class="header-data-text"> Standard Price</span>
+            </div>
+            <div class="units-header-data-right">
+              <span class="header-data-offer-price"> $18.00 USD</span>
+              <span class="header-data-orginal-price">$24.00 USD</span>
+            </div>
+            <span class="most-popular">Most Popular</span>
+          </div>
+        </div>
+        <div class="units-content-section" id="content2">
+          <div class="content-header">
+            <span class="content-sno sno">sno</span>
+            <span class="content-header-size">Size</span>
+            <span class="content-header-color">Color</span>
+          </div>
+          <div class="content-inputs-div">
+            <span class="content-sno">#1</span>
+            <select class="content-inputs">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select class="content-inputs">
+              <option>Black</option>
+              <option>White</option>
+              <option>Red</option>
+            </select>
+          </div>
+          <div class="content-inputs-div">
+            <span class="content-sno">#2</span>
+            <select class="content-inputs">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select class="content-inputs">
+              <option>Black</option>
+              <option>White</option>
+              <option>Red</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        class="units-section"
+        id="units-section3"
+        onclick="selectUnits(event,'3','24')"
+      >
+        <div class="units-header-section">
+          <input
+            type="radio"
+            class="radios"
+            name="units"
+            value="3"
+            id="radio3"
+          />
+          <div class="units-header-data-section">
+            <div class="units-header-data-left">
+              <div class="header-data-units">
+                <span class="header-data-units">3 Unit</span>
+                <span class="header-data-units-off">30% Off</span>
+              </div>
+              <span class="header-data-text"> Standard Price</span>
+            </div>
+            <div class="units-header-data-right">
+              <span class="header-data-offer-price"> $24.00 USD</span>
+              <span class="header-data-orginal-price">$24.00 USD</span>
+            </div>
+          </div>
+        </div>
+        <div class="units-content-section" id="content3">
+          <div class="content-header">
+            <span class="content-sno sno">sno</span>
+            <span class="content-header-size">Size</span>
+            <span class="content-header-color">Color</span>
+          </div>
+          <div class="content-inputs-div">
+            <span class="content-sno">#1</span>
+            <select class="content-inputs">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select class="content-inputs">
+              <option>Black</option>
+              <option>White</option>
+              <option>Red</option>
+            </select>
+          </div>
+          <div class="content-inputs-div">
+            <span class="content-sno">#2</span>
+            <select class="content-inputs">
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+            </select>
+            <select class="content-inputs">
+              <option>Black</option>
+              <option>White</option>
+              <option>Red</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <div class="price-shipping-section">
+          <span class="Delivery-type">Free Delivery</span>
+          <span id="amount">Total : $18.00 USD</span>
+        </div>
+        <div class="button-section">
+          <button>+ Add to Cart</button>
+        </div>
+        <span class="footer-desc">@ Poweered by Pumper</span>
+      </div>
+    </div>
+
+    <script>
+      function selectUnits(event, ID, amount) {
+        let radio = document.getElementById("radio" + ID);
+        let allContents = document
+          .querySelectorAll(".units-content-section")
+          .forEach((eachContent) => {
+            eachContent.style.display = "none";
+          });
+        let allSections = document
+          .querySelectorAll(".units-section")
+          .forEach((eachSelection) => {
+            eachSelection.classList.remove("highlight-border");
+          });
+
+        let unitsSection = document.getElementById("units-section" + ID);
+        unitsSection.classList.add("highlight-border");
+
+        let content = document.getElementById("content" + ID);
+        content.style.display = "block";
+        if (radio) radio.checked = true;
+        let amountElement = document.getElementById("amount");
+        if (amountElement)
+          amountElement.innerText = ` Total : $${amount}.00 USD `;
+        console.log("units clicked", content);
+      }
+    </script>
+  </body>
+</html>
